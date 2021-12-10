@@ -12,7 +12,7 @@ app.use((req, res, next) => {
 
 
 // Routes
-app.use("api/v1/contact", contactRouter)
+app.use("/api/v1/contact", contactRouter)
 
 
 module.exports = app;
