@@ -1,7 +1,9 @@
 const Contacts = require("../models/contactModel");
 const APIFeatures = require("../utilies/APIFeatures");
+const AppError = require("../utilies/AppError");
 const catchAsync = require("../utilies/catchAsync")
 
+// Create
 exports.newContact = catchAsync(async (req, res, next) => {
     const contact = await Contacts.create(req.body);
 
@@ -11,6 +13,7 @@ exports.newContact = catchAsync(async (req, res, next) => {
     })
 })
 
+// Read
 exports.getContacts = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Contacts.find(), req.query).filter().paginate();
 
@@ -24,4 +27,31 @@ exports.getContacts = catchAsync(async (req, res, next) => {
             contacts
         }
     })
+})
+
+// Update
+exports.updateContact = catchAsync(async (req, res, next) => {
+    const contact = await Contacts.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    })
+
+    if(!contact) {
+        return next(new AppError("No document found with that ID", 404))
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            contact
+        }
+    })
+})
+
+// Delete
+
+exports.deleteContact = catchAsync(async (req, res, next) => {
+  const contact = await Contacts.findByIdAndDelete(req.params.id);
+  
+  res.send("Document successfully deleted!")
 })

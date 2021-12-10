@@ -23,7 +23,7 @@ class APIFeatures {
     }
     paginate() {
         if(this.queryString.page <= 0) {
-            throw new AppError('This page does not match');
+            throw new AppError('This page does not match', 403);
         }
 
         const page = this.queryString.page * 1 || 1;
