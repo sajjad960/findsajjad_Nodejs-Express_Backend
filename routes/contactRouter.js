@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.route('/').post(contactController.newContact).get(contactController.getContacts)
 router.route('/:id').patch(contactController.updateContact).delete(contactController.deleteContact)
+router.route('/test').get()
 
 module.exports = router;

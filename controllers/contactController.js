@@ -2,6 +2,7 @@ const Contacts = require("../models/contactModel");
 const APIFeatures = require("../utilies/APIFeatures");
 const AppError = require("../utilies/AppError");
 const catchAsync = require("../utilies/catchAsync")
+const testData = require("../data/testData.json")
 
 // Create
 exports.newContact = catchAsync(async (req, res, next) => {
@@ -54,4 +55,10 @@ exports.deleteContact = catchAsync(async (req, res, next) => {
   const contact = await Contacts.findByIdAndDelete(req.params.id);
   
   res.send("Document successfully deleted!")
+})
+
+// Testing for blocking code 
+exports.testingBlocking = catchAsync(async(req, res, next) => {
+    testData.forEach(el => console.log(el))
+    // const contact = await Contacts.create
 })
