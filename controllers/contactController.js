@@ -59,14 +59,18 @@ exports.deleteContact = catchAsync(async (req, res, next) => {
 
 // Testing for blocking code
 exports.testingBlocking = catchAsync(async(req, res, next) => {
-    testData.forEach(async function(el) {
-    const contact = await Contacts.create(el);
-    console.log(contact);
-    })
-    // res.send('data created')
 
-    // Promise.all(testData.map(function(data){
-    //     return Contacts.create(data)
-    // })).then(res.send('All document created'))
-    // const contact = await Contacts.create
+    // Creating data with forEach 💥
+    testData.forEach(async function(data, i) {
+    const contact = await Contacts.create(data);
+
+    if(i === testData.length - 1) {
+        res.send('data created')
+    }
+    })
+
+    // Creating data with Promise.all 💥
+    Promise.all(testData.map(function(data){
+        return Contacts.create(data)
+    })).then(res.send('All document created'))
 })
