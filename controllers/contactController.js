@@ -57,8 +57,16 @@ exports.deleteContact = catchAsync(async (req, res, next) => {
   res.send("Document successfully deleted!")
 })
 
-// Testing for blocking code 
+// Testing for blocking code
 exports.testingBlocking = catchAsync(async(req, res, next) => {
-    testData.forEach(el => console.log(el))
+    testData.forEach(async function(el) {
+    const contact = await Contacts.create(el);
+    console.log(contact);
+    })
+    // res.send('data created')
+
+    // Promise.all(testData.map(function(data){
+    //     return Contacts.create(data)
+    // })).then(res.send('All document created'))
     // const contact = await Contacts.create
 })
